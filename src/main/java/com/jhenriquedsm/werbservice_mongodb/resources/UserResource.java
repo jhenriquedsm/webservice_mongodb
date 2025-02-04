@@ -1,6 +1,7 @@
 package com.jhenriquedsm.werbservice_mongodb.resources;
 
 import com.jhenriquedsm.werbservice_mongodb.domain.User;
+import com.jhenriquedsm.werbservice_mongodb.dto.UserDTO;
 import com.jhenriquedsm.werbservice_mongodb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,9 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> users = userService.findAll();
-        return ResponseEntity.ok().body(users);
+        List<UserDTO> usersDTO = users.stream().map(x -> new UserDTO(x)).toList();
+        return ResponseEntity.ok().body(usersDTO);
     }
 }
