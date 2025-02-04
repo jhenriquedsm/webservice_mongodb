@@ -1,6 +1,7 @@
 package com.jhenriquedsm.werbservice_mongodb.services;
 
 import com.jhenriquedsm.werbservice_mongodb.domain.User;
+import com.jhenriquedsm.werbservice_mongodb.dto.UserDTO;
 import com.jhenriquedsm.werbservice_mongodb.repository.UserRepository;
 import com.jhenriquedsm.werbservice_mongodb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Object not found!"));
+    }
+
+    public User insert(User user) {
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
