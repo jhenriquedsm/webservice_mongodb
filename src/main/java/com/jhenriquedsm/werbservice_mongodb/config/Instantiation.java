@@ -3,6 +3,7 @@ package com.jhenriquedsm.werbservice_mongodb.config;
 import com.jhenriquedsm.werbservice_mongodb.domain.Post;
 import com.jhenriquedsm.werbservice_mongodb.domain.User;
 import com.jhenriquedsm.werbservice_mongodb.dto.AuthorDTO;
+import com.jhenriquedsm.werbservice_mongodb.dto.CommentDTO;
 import com.jhenriquedsm.werbservice_mongodb.repository.PostRepository;
 import com.jhenriquedsm.werbservice_mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, sdf.parse("05/02/2025"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(henrique));
         Post post2 = new Post(null, sdf.parse("05/02/2025"), "Bom dia", "Acordei feliz hoje!",new AuthorDTO(henrique));
+
+        CommentDTO comment1 = new CommentDTO("Boa viagem, mano!", sdf.parse("05/02/2025"), new AuthorDTO(jose));
+        CommentDTO comment2 = new CommentDTO("Aproveite!", sdf.parse("06/02/2025"), new AuthorDTO(joseHenrique));
+        CommentDTO comment3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("05/02/2025"), new AuthorDTO(jose));
+
+        post1.getComments().addAll(Arrays.asList(comment1, comment2));
+        post2.getComments().addAll(Arrays.asList(comment3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
