@@ -2,6 +2,7 @@ package com.jhenriquedsm.werbservice_mongodb.config;
 
 import com.jhenriquedsm.werbservice_mongodb.domain.Post;
 import com.jhenriquedsm.werbservice_mongodb.domain.User;
+import com.jhenriquedsm.werbservice_mongodb.dto.AuthorDTO;
 import com.jhenriquedsm.werbservice_mongodb.repository.PostRepository;
 import com.jhenriquedsm.werbservice_mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,11 @@ public class Instantiation implements CommandLineRunner {
         User henrique = new User(null, "Henrique", "henrique@email.com");
         User joseHenrique = new User(null, "José Henrique", "jose.henrique@email.com");
 
-        Post post1 = new Post(null, sdf.parse("05/02/2025"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", henrique);
-        Post post2 = new Post(null, sdf.parse("05/02/2025"), "Bom dia", "Acordei feliz hoje!",henrique);
-
         userRepository.saveAll(Arrays.asList(jose, henrique, joseHenrique));
+
+        Post post1 = new Post(null, sdf.parse("05/02/2025"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(henrique));
+        Post post2 = new Post(null, sdf.parse("05/02/2025"), "Bom dia", "Acordei feliz hoje!",new AuthorDTO(henrique));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
 }
